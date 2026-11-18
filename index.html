@@ -55,6 +55,16 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; text-wrap: bal
 
 .theme-toggle:hover { background: rgba(255, 255, 255, 0.14); transform: rotate(15deg); }
 
+.hdr-btn { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 0.45rem; height: 42px; padding: 0 0.95rem; border-radius: 999px; border: 1.5px solid rgba(255, 255, 255, 0.35); color: rgb(255, 255, 255); font-size: var(--text-sm); font-weight: 500; white-space: nowrap; transition: background var(--transition); }
+
+.hdr-btn:hover { background: rgba(255, 255, 255, 0.14); }
+
+.hdr-btn svg { width: 17px; height: 17px; }
+
+.hdr-actions { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+
+@media (max-width: 720px) { .hdr-actions { width: 100%; } .hdr-actions .theme-toggle { margin-left: auto; } .hdr-btn { height: 40px; padding: 0 0.8rem; } }
+
 .toolbar-wrap { position: sticky; top: 0px; z-index: 50; background: color-mix(in oklab, var(--bg) 86%, transparent); backdrop-filter: blur(14px); border-bottom: 1px solid var(--divider); }
 
 .toolbar { max-width: 1400px; margin: 0px auto; padding: 0.8rem clamp(1rem, 3vw, 2.5rem) 0.9rem; }
@@ -289,7 +299,12 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; text-wrap: bal
     <div class="stat"><b>7</b><span>thèmes</span></div>
     <div class="stat"><b>6</b><span>procédés</span></div>
     <div class="stat"><b>37 / 120 / 70</b><span>U11 / U13 / F8</span></div></div>
+    <div class="hdr-actions">
+    <button class="hdr-btn" id="btnSaveJson" type="button" title="Enregistrer toutes les données de l’application dans un fichier JSON (les vidéos importées ne sont pas incluses)" aria-label="Sauvegarder les données en JSON"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg><span>Sauvegarder (JSON)</span></button>
+    <button class="hdr-btn" id="btnLoadJson" type="button" title="Restaurer les données depuis un fichier JSON" aria-label="Restaurer les données depuis un fichier JSON"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5M4 20h16"/></svg><span>Restaurer</span></button>
+    <input type="file" id="fileLoadJson" accept=".json,application/json" hidden>
     <button class="theme-toggle" data-theme-toggle="" aria-label="Basculer le thème" type="button"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+    </div>
   </div>
   <nav class="tabs" role="tablist" aria-label="Sections">
     <button class="tab" role="tab" type="button" data-tab="bibliotheque" aria-selected="true">Bibliothèque</button>
@@ -10102,6 +10117,46 @@ button.in-q:hover { border-color: var(--text-muted); }
     else if ((e.key === 'f' || e.key === 'F') && !typing) { var w = ((anActiveVid && anActiveVid.isConnected) ? anActiveVid : rd.querySelector('video[src]')); if (w) { e.preventDefault(); fsTo(w.closest('.an-vwrap')); } }
   }, true);
   $('#anRead').addEventListener('click', function () { anCur.title = $('#anTitle').value || anCur.title; anSaveNow(); openRead(anCur); });
+
+
+  /* ====================== Sauvegarde / restauration (JSON) ====================== */
+  var BQ_KEYS = ['bq-philo', 'bq-rapport', 'bq-ressources', 'bq-montages', 'bq-msg', 'bq-analyses'];
+  function saveDataToJSON() {
+    /* On force l'enregistrement de ce qui est en cours de saisie */
+    try { if (typeof anCur !== 'undefined' && anCur) { var tEl = $('#anTitle'); if (tEl && tEl.value) anCur.title = tEl.value; anSaveNow(); } } catch (e) {}
+    try { msSave(); } catch (e) {}
+    try { saveRp(); } catch (e) {}
+    var data = {};
+    BQ_KEYS.forEach(function (k) {
+      try { var raw = localStorage.getItem(k); data[k] = raw == null ? null : JSON.parse(raw); } catch (e) { data[k] = null; }
+    });
+    var out = { app: 'DBCoaching', version: 1, exportedAt: new Date().toISOString(), data: data };
+    var blob = new Blob([JSON.stringify(out, null, 2)], { type: 'application/json' });
+    var a = document.createElement('a'), d = new Date(), pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    a.href = URL.createObjectURL(blob);
+    a.download = 'DBCoaching-sauvegarde-' + d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) + '.json';
+    document.body.appendChild(a); a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  }
+  function restoreDataFromJSON(file) {
+    if (!file) return;
+    var fr = new FileReader();
+    fr.onload = function () {
+      var obj;
+      try { obj = JSON.parse(fr.result); } catch (e) { alert('Fichier invalide : ce n’est pas un JSON lisible.'); return; }
+      if (!obj || obj.app !== 'DBCoaching' || !obj.data || typeof obj.data !== 'object') { alert('Ce fichier n’est pas une sauvegarde DBCoaching.'); return; }
+      if (!confirm('Restaurer cette sauvegarde ? Les données actuelles de l’application seront remplacées.')) return;
+      try {
+        BQ_KEYS.forEach(function (k) { if (obj.data[k] != null) localStorage.setItem(k, JSON.stringify(obj.data[k])); });
+      } catch (e) { alert('Restauration impossible (stockage du navigateur plein ou bloqué).'); return; }
+      location.reload();
+    };
+    fr.onerror = function () { alert('Impossible de lire le fichier.'); };
+    fr.readAsText(file);
+  }
+  $('#btnSaveJson').addEventListener('click', saveDataToJSON);
+  $('#btnLoadJson').addEventListener('click', function () { $('#fileLoadJson').click(); });
+  $('#fileLoadJson').addEventListener('change', function (e) { restoreDataFromJSON(e.target.files[0]); e.target.value = ''; });
 
 
   apply();
