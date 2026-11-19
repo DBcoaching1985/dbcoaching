@@ -6095,7 +6095,7 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; text-wrap: bal
 <section class="report-wrap" id="messageView" hidden>
   <div class="rp-card">
     <h2 class="rp-title">Écrire un message</h2>
-    <p class="rp-lead">Écrivez la base de votre message, même en style SMS : l’application <b>comprend de quoi vous parlez</b> (constat, consigne, demande, organisation, thèmes de jeu) puis <b>construit le message à votre place</b>, avec le vocabulaire du <b>lexique du coach</b>, les <b>termes des intentions</b> et les qualités <b>T.I.P.S.</b>, les formulations du répertoire, les fiches de la bibliothèque et vos ressources. Pensé pour vos adjoints, votre staff et vos prises de parole. Tout se passe dans votre navigateur ; seule la génération par IA (Gemini, facultative) envoie votre texte à Google.</p>
+    <p class="rp-lead">Écrivez la base de votre message, même en style SMS : l’application <b>comprend de quoi vous parlez</b> (constat, consigne, demande, organisation, thèmes de jeu) puis <b>construit le message à votre place</b>, avec le vocabulaire du <b>lexique du coach</b>, les <b>termes des intentions</b> et les qualités <b>T.I.P.S.</b>, les formulations du répertoire, les fiches de la bibliothèque et vos ressources. Pensé pour vos adjoints, votre staff et vos prises de parole. Tout se passe dans votre navigateur ; seule la génération par IA gratuite (OpenRouter, facultative) envoie votre texte à un fournisseur d’IA.</p>
     <form id="msForm" class="rf vf-grid" novalidate>
       <div class="rf-row"><label for="msText">La base de mon message *</label><textarea id="msText" class="res-input" rows="6" placeholder="Ex. : mardi on bosse la sortie de balle, il faut que les gars restent groupés et fassent des appels dans le dos, svp relancez bien les consignes"></textarea></div>
       <div class="vf-two">
@@ -6116,15 +6116,15 @@ h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; text-wrap: bal
         <div class="rf-row" style="margin-top:.7rem"><label for="msPhil">Philosophie de jeu</label><select id="msPhil" class="f-select-input"></select><p class="rf-hint">Par défaut, l’application utilise la philosophie que vous avez choisie pour la séquence détectée.</p></div>
       </details>
       <details class="in-details" id="aiBox">
-        <summary>✨ Génération par IA (Gemini) : réglages</summary>
-        <div class="rf-row" style="margin-top:.7rem"><label for="aiKey">Clé API Gemini</label><input id="aiKey" class="res-input" type="password" autocomplete="off" placeholder="Collez votre clé (elle reste sur cet appareil)"><p class="rf-hint">Clé gratuite : <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a> (compte Google, sans carte bancaire). Elle n’est jamais incluse dans la sauvegarde JSON : à saisir une fois par appareil.</p></div>
-        <div class="rf-row" style="margin-top:.7rem"><label for="aiModel">Modèle</label><input id="aiModel" class="res-input" type="text" list="aiModels" value="gemini-3.8-flash" autocomplete="off"><datalist id="aiModels"><option value="gemini-3.8-flash"></option><option value="gemini-3.6-flash"></option><option value="gemini-3.5-flash-lite"></option><option value="gemini-3.1-flash-lite"></option></datalist><p class="rf-hint">Si Google renomme ou retire un modèle, changez simplement ce nom (liste : aistudio.google.com).</p></div>
-        <div class="rf-row" style="margin-top:.7rem"><label for="aiStyle">Mes messages modèles (pour imiter ma façon d’écrire)</label><textarea id="aiStyle" class="res-input" rows="7" placeholder="Collez 2 ou 3 messages que vous avez déjà écrits, séparés par une ligne contenant ---"></textarea><p class="rf-hint">C’est ce qui rend les messages ressemblants. Évitez les noms complets d’enfants et toute information personnelle : le texte est envoyé à Google (sur l’offre gratuite, il peut servir à améliorer leurs services).</p></div>
+        <summary>✨ Génération par IA gratuite (OpenRouter) : réglages</summary>
+        <div class="rf-row" style="margin-top:.7rem"><label for="aiKey">Clé API OpenRouter</label><input id="aiKey" class="res-input" type="password" autocomplete="off" placeholder="Collez votre clé (sk-or-…), elle reste sur cet appareil"><p class="rf-hint">Clé gratuite : <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">openrouter.ai/keys</a> (compte par e-mail ou GitHub, sans carte bancaire). Elle n’est jamais incluse dans la sauvegarde JSON : à saisir une fois par appareil.</p></div>
+        <div class="rf-row" style="margin-top:.7rem"><label for="aiModel">Modèle imposé <span>(facultatif)</span></label><input id="aiModel" class="res-input" type="text" autocomplete="off" placeholder="Laisser vide : choix automatique du meilleur modèle gratuit"><p class="rf-hint">Par défaut, le meilleur modèle gratuit Nemotron (NVIDIA) passe en premier et est attendu jusqu’à 2 minutes. En cas d’échec, l’application relit la liste des modèles gratuits d’OpenRouter, essaie les plus performants et les plus rapides (selon ses mesures sur votre appareil), et vérifie que la réponse est en français.</p></div>
+        <div class="rf-row" style="margin-top:.7rem"><label for="aiStyle">Mes messages modèles (pour imiter ma façon d’écrire)</label><textarea id="aiStyle" class="res-input" rows="7" placeholder="Collez 2 ou 3 messages que vous avez déjà écrits, séparés par une ligne contenant ---"></textarea><p class="rf-hint">C’est ce qui rend les messages ressemblants. Évitez les noms complets d’enfants et toute information personnelle : le texte est envoyé à un fournisseur d’IA tiers, et les modèles gratuits peuvent conserver les échanges.</p></div>
       </details>
       <div class="rf-row" id="msModeRow"><label for="msMode">Mode de rédaction</label><select id="msMode" class="f-select-input"><option value="coach">Coach : l’application construit le message pour moi</option><option value="fidele">Reformulation fidèle de mes phrases</option></select></div>
       <label class="vf-chip" id="msPoliteL" style="align-self:flex-start"><input type="checkbox" id="msPolite" checked> Ajouter la formule d’appel et de politesse</label>
       <p class="rf-err" id="msErr" role="alert" hidden></p>
-      <div class="pm-actions"><button type="submit" class="btn-primary">Construire mon message</button><button type="button" class="btn-primary" id="aiGen">✨ Générer avec l’IA (Gemini)</button><button type="button" class="btn-reset" id="msClear">Effacer</button></div>
+      <div class="pm-actions"><button type="submit" class="btn-primary">Construire mon message</button><button type="button" class="btn-primary" id="aiGen">✨ Générer avec l’IA gratuite</button><button type="button" class="btn-reset" id="msClear">Effacer</button></div>
     </form>
   </div>
   <div class="rp-card" id="msResult" hidden>
@@ -9299,15 +9299,12 @@ button.in-q:hover { border-color: var(--text-muted); }
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok, fb); else fb();
   });
 
-  /* ====================== Génération de messages par IA (Gemini) ====================== */
-  var AI_KEY_STORE = 'bq-gemini-key', AI_SET_STORE = 'bq-ai';
+  /* ====================== Génération de messages par IA gratuite (OpenRouter) ====================== */
+  var AI_KEY_STORE = 'bq-openrouter-key', AI_SET_STORE = 'bq-ai', AI_PERF_STORE = 'bq-ai-perf', AI_LIST_STORE = 'bq-ai-list';
   var aiBusy = false;
   (function () {
     try { var k = localStorage.getItem(AI_KEY_STORE); if (k) $('#aiKey').value = k; } catch (e) {}
-    try {
-      var d = JSON.parse(localStorage.getItem(AI_SET_STORE) || 'null');
-      if (d) { if (d.style != null) $('#aiStyle').value = d.style; if (d.model) $('#aiModel').value = d.model; }
-    } catch (e) {}
+    try { var d = JSON.parse(localStorage.getItem(AI_SET_STORE) || 'null'); if (d) { if (d.style != null) $('#aiStyle').value = d.style; if (d.model) $('#aiModel').value = d.model; } } catch (e) {}
   })();
   function aiSaveSettings() {
     try { localStorage.setItem(AI_SET_STORE, JSON.stringify({ style: $('#aiStyle').value, model: $('#aiModel').value.trim() })); } catch (e) {}
@@ -9315,9 +9312,11 @@ button.in-q:hover { border-color: var(--text-muted); }
   }
   ['aiKey', 'aiModel', 'aiStyle'].forEach(function (id) { $('#' + id).addEventListener('input', aiSaveSettings); });
   function selTxt(id) { var el = $('#' + id); return el && el.selectedOptions && el.selectedOptions[0] ? el.selectedOptions[0].textContent.trim() : ''; }
+
+  /* --- Consigne envoyée à l'IA --- */
   function aiBuildPrompt(text) {
     var needs = Array.prototype.map.call($('#msNeeds').querySelectorAll('input:checked'), function (i) { return i.value; });
-    var hint = { themes: [], vocab: [], draft: '' };
+    var hint = { themes: [], vocab: [], draft: '', phil: '' };
     try {
       var r = compose({ mode: msVal('msMode'), ctx: msVal('msCtx'), text: text, dest: msVal('msDest'), pro: msVal('msPro'), ton: msVal('msTon'), len: msVal('msLen'), names: msVal('msNames'), sign: msVal('msSign'), polite: $('#msPolite').checked, needs: needs, phil: msVal('msPhil') });
       hint.themes = (r.needsAll || r.needs || []).map(function (q) { var n = q.need || q; return n.label; }).filter(Boolean).slice(0, 8);
@@ -9332,56 +9331,132 @@ button.in-q:hover { border-color: var(--text-muted); }
     if (!$('#msCtxRow').hidden && msVal('msCtx') !== 'auto') parts.push('CONTEXTE : ' + selTxt('msCtx'));
     parts.push('FORMULES : ' + ($('#msPolite').checked ? 'ajouter une formule d’appel au début et une formule de politesse à la fin' : 'pas de formule d’appel ni de politesse') + (msVal('msSign').trim() ? ' ; signer « ' + msVal('msSign').trim() + ' »' : ' ; ne pas signer'));
     if (hint.themes.length || hint.vocab.length || hint.phil) parts.push('THÈMES ET VOCABULAIRE DU COACH À INTÉGRER NATURELLEMENT (sans les réciter) : ' + hint.themes.concat(hint.vocab).join(', ') + (hint.phil ? ' ; philosophie de jeu : ' + hint.phil : ''));
-    if (msVal('msMode') === 'fidele') parts.push('MODE : reformulation fidèle. Garde le sens, l’ordre et les idées de la base, corrige et clarifie seulement.');
-    else parts.push('MODE : coach. Structure et enrichis la base pour qu’elle soit claire, juste et utile, sans ajouter de faits.');
+    parts.push(msVal('msMode') === 'fidele' ? 'MODE : reformulation fidèle. Garde le sens, l’ordre et les idées de la base, corrige et clarifie seulement.' : 'MODE : coach. Structure et enrichis la base pour qu’elle soit claire, juste et utile, sans ajouter de faits.');
     if (hint.draft) parts.push('BROUILLON AUTOMATIQUE DE L’APPLICATION (peut être maladroit, ne pas le recopier tel quel) :\n' + hint.draft);
     var style = $('#aiStyle').value.trim();
-    var sys = 'Tu écris en français, à la première personne, des messages à la place d’un entraîneur de football de jeunes, comme s’il les avait écrits lui-même. ' +
-      (style ? 'Imite fidèlement sa façon d’écrire d’après ses messages modèles ci-dessous : vocabulaire, longueur des phrases, ponctuation, formules de début et de fin, niveau de familiarité. ' : '') +
-      'N’invente aucun fait, score, nom, date, lieu ou chiffre absent de sa base. N’emploie ni markdown, ni titres, ni listes à puces, ni emojis (sauf si ses modèles en contiennent). Réponds uniquement par le texte du message, sans commentaire ni guillemets autour.' +
+    var sys = 'INSTRUCTIONS : tu écris en français, à la première personne, des messages à la place d’un entraîneur de football de jeunes, comme s’il les avait écrits lui-même. ' +
+      (style ? 'Imite fidèlement sa façon d’écrire d’après ses messages modèles : vocabulaire, longueur des phrases, ponctuation, formules de début et de fin, niveau de familiarité. ' : '') +
+      'Écris uniquement en français correct. N’invente aucun fait, score, nom, date, lieu ou chiffre absent de sa base. N’emploie ni markdown, ni titres, ni listes à puces, ni emojis (sauf si ses modèles en contiennent). Réponds uniquement par le texte du message, sans commentaire, sans explication de ta réflexion, sans guillemets autour.' +
       (style ? '\n\nMESSAGES MODÈLES DE L’ENTRAÎNEUR (séparés par ---) :\n' + style : '');
-    return { system: sys, user: parts.join('\n\n') };
+    return sys + '\n\n=====\n\n' + parts.join('\n\n') + '\n\nRédige maintenant le message final.';
+  }
+
+  /* --- Choix automatique du meilleur modèle gratuit --- */
+  function aiPerf() { try { return JSON.parse(localStorage.getItem(AI_PERF_STORE) || '{}') || {}; } catch (e) { return {}; } }
+  function aiPerfSave(o) { try { localStorage.setItem(AI_PERF_STORE, JSON.stringify(o)); } catch (e) {} }
+  function aiIsFree(x) {
+    if (!x || !x.id || x.id === 'openrouter/free') return false;
+    var p = x.pricing || {}, a = x.architecture || {}, o = a.output_modalities || ['text'], i = a.input_modalities || ['text'];
+    if (!(/:free$/.test(x.id) || (Number(p.prompt) === 0 && Number(p.completion) === 0 && p.prompt != null))) return false;
+    if (o.indexOf('text') < 0 || o.indexOf('image') >= 0 || o.indexOf('audio') >= 0 || i.indexOf('text') < 0) return false;
+    return !/guard|moderat|embed|safety|reward|whisper|tts/i.test(x.id);
+  }
+  function aiFreeModels() {
+    try { var c = JSON.parse(localStorage.getItem(AI_LIST_STORE) || 'null'); if (c && c.m && c.m.length && Date.now() - c.t < 3600000) return Promise.resolve(c.m); } catch (e) {}
+    return fetch('https://openrouter.ai/api/v1/models').then(function (r) { if (!r.ok) throw new Error('liste'); return r.json(); }).then(function (j) {
+      var m = (j.data || []).filter(aiIsFree).map(function (x) {
+        return { id: x.id, name: x.name || '', ctx: x.context_length || 0, created: x.created || 0, rs: (x.supported_parameters || []).indexOf('reasoning') >= 0 };
+      });
+      try { localStorage.setItem(AI_LIST_STORE, JSON.stringify({ t: Date.now(), m: m })); } catch (e) {}
+      return m;
+    });
+  }
+  function aiScore(m, perf) {
+    var id = (m.id + ' ' + m.name).toLowerCase(), s = 0;
+    var nums = (id.match(/(\d+(?:\.\d+)?)b(?![a-z])/g) || []).map(function (x) { return parseFloat(x); });
+    var size = nums.length ? Math.max.apply(null, nums) : (/ultra/.test(id) ? 200 : /large/.test(id) ? 100 : /super/.test(id) ? 90 : /medium/.test(id) ? 40 : /small/.test(id) ? 20 : /nano|mini|tiny/.test(id) ? 8 : 30);
+    s += Math.log(size + 1) / Math.LN2 * 10;
+    if (/mistral|mixtral|magistral/.test(id)) s += 12;
+    else if (/gpt-oss/.test(id)) s += 8;
+    else if (/qwen/.test(id)) s += 8;
+    else if (/llama-?(3\.3|4)|gemma|deepseek/.test(id)) s += 6;
+    else if (/glm|kimi|minimax|nemotron|inkling/.test(id)) s += 5;
+    if (/coder|code/.test(id)) s -= 40;
+    if (/\bvl\b|-vl|vision/.test(id)) s -= 10;
+    if (m.rs || /think|reason|r1|qwq/.test(id)) s -= 18;
+    if (m.created) s += Math.max(0, 20 - ((Date.now() / 1000 - m.created) / 86400) / 30);
+    s += Math.min(m.ctx || 0, 131072) / 131072 * 4;
+    var p = perf[m.id];
+    if (p) {
+      if (p.fail && Date.now() - p.fail < 600000) s -= 100;
+      if (p.ms) s += Math.max(-10, Math.min(10, (15000 - p.ms) / 1500));
+    }
+    return s;
+  }
+  var FR_W = /^(le|la|les|de|des|du|un|une|et|est|pour|que|qui|vous|nous|à|au|aux|en|dans|sur|pas|ce|cette|il|elle|je|tu|ils|sont|avec|mais|ou|si|notre|votre|leur|merci|bonjour|salut)$/;
+  var EN_W = /^(the|and|we|will|to|of|you|your|is|are|this|that|with|for|please|our|on|it|be|have|from|at|by|as)$/;
+  function aiIsFrench(t) {
+    var w = t.toLowerCase().match(/[a-zàâçéèêëîïôûùüÿœ']+/g) || [];
+    if (w.length < 6) return true;
+    var fr = 0, en = 0; w.forEach(function (x) { if (FR_W.test(x)) fr++; if (EN_W.test(x)) en++; });
+    return fr / w.length > 0.14 && fr > en;
+  }
+  function aiCall(id, text, key, timeoutMs) {
+    var ctrl = new AbortController(), to = setTimeout(function () { ctrl.abort(); }, timeoutMs || 30000), t0 = Date.now();
+    return fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST', signal: ctrl.signal,
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key },
+      body: JSON.stringify({ model: id, messages: [{ role: 'user', content: text }], temperature: 0.8, max_tokens: 900 })
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (j) { clearTimeout(to); return { ok: r.ok, status: r.status, j: j, ms: Date.now() - t0 }; });
+    }, function () { clearTimeout(to); return { ok: false, status: 0, j: {}, ms: Date.now() - t0 }; });
+  }
+  function aiRun(text, key, override) {
+    return aiFreeModels().catch(function () { return []; }).then(function (list) {
+      var perf = aiPerf();
+      /* Modèle prioritaire : celui imposé, sinon le meilleur Nemotron (NVIDIA) gratuit du moment, attendu jusqu'à 2 minutes */
+      var prio = override || '';
+      if (!prio) {
+        var nem = list.filter(function (m) { return /nemotron/i.test(m.id); }).sort(function (a, b) { return aiScore(b, {}) - aiScore(a, {}); });
+        if (nem.length) prio = nem[0].id;
+      }
+      var ranked = list.slice().sort(function (a, b) { return aiScore(b, perf) - aiScore(a, perf); }).map(function (m) { return m.id; }).filter(function (id) { return id !== prio; }).slice(0, 4);
+      var order = prio ? [prio] : [];
+      ranked.forEach(function (id) { if (order.indexOf(id) < 0) order.push(id); });
+      order.push('openrouter/free');
+      order = order.slice(0, 5);
+      var i = 0, lastErr = '';
+      function next() {
+        if (i >= order.length) return Promise.reject({ msg: lastErr || 'Aucun modèle gratuit n’a répondu.' });
+        var id = order[i++];
+        return aiCall(id, text, key, id === prio ? 120000 : 30000).then(function (o) {
+          var j = o.j || {}, em = (j.error && j.error.message) || '', code = o.status || (j.error && j.error.code) || 0, out = '';
+          if (code === 401 || (code === 403 && /key|auth|credential/i.test(em))) return Promise.reject({ msg: 'Clé OpenRouter refusée : vérifiez qu’elle est copiée en entier (elle commence par sk-or-).' });
+          if (code === 402) return Promise.reject({ msg: 'OpenRouter demande des crédits pour ce compte (solde négatif). Les modèles gratuits restent accessibles avec un solde à zéro.' });
+          if (o.ok && !j.error) { var c = j.choices && j.choices[0]; out = c && c.message && typeof c.message.content === 'string' ? c.message.content.trim() : ''; }
+          var pf = aiPerf();
+          if (out && aiIsFrench(out)) {
+            pf[id] = { ms: o.ms, ok: Date.now() }; aiPerfSave(pf);
+            return { out: out.replace(/^```[a-z]*\n?|```$/g, '').trim(), model: j.model || id, ms: o.ms, planB: !!prio && id !== prio, prio: prio };
+          }
+          pf[id] = { fail: Date.now(), ms: pf[id] && pf[id].ms }; aiPerfSave(pf);
+          if (code === 429 && /per-day|daily|free-models-per-day/i.test(em)) return Promise.reject({ msg: 'Limite journalière des modèles gratuits atteinte (50 requêtes par jour sans crédit). Elle se renouvelle chaque jour à minuit UTC.' });
+          lastErr = code === 429 ? 'Limite gratuite atteinte (environ 20 requêtes par minute) : réessayez dans une minute.' : (out ? 'Les modèles essayés ne répondaient pas en français.' : (em || 'Aucun modèle gratuit n’a répondu (erreur ' + code + ').'));
+          return next();
+        });
+      }
+      return next();
+    });
   }
   function aiGenerate() {
     if (aiBusy) return;
     var text = msVal('msText').trim();
     if (text.replace(/\s/g, '').length < 8) { msErr.textContent = 'Écrivez d’abord la base de votre message (quelques mots suffisent).'; msErr.hidden = false; msText.focus(); return; }
-    var key = $('#aiKey').value.trim(), model = $('#aiModel').value.trim() || 'gemini-3.8-flash';
-    if (!key) { var box = $('#aiBox'); box.open = true; msErr.textContent = 'Ajoutez d’abord votre clé API Gemini dans « Génération par IA : réglages » (gratuite sur aistudio.google.com/apikey).'; msErr.hidden = false; $('#aiKey').focus(); return; }
+    var key = $('#aiKey').value.trim();
+    if (!key) { $('#aiBox').open = true; msErr.textContent = 'Ajoutez d’abord votre clé OpenRouter dans « Génération par IA gratuite : réglages » (gratuite sur openrouter.ai/keys).'; msErr.hidden = false; $('#aiKey').focus(); return; }
     msErr.hidden = true; msSave(); aiSaveSettings();
-    var pr = aiBuildPrompt(text), btns = [$('#aiGen'), $('#aiRegen')], labels = btns.map(function (b) { return b.textContent; });
-    aiBusy = true; btns.forEach(function (b) { b.disabled = true; b.textContent = 'Génération en cours…'; });
+    var btns = [$('#aiGen'), $('#aiRegen')], labels = btns.map(function (b) { return b.textContent; });
+    aiBusy = true; btns.forEach(function (b) { b.disabled = true; b.textContent = 'Génération en cours (jusqu’à 2 min)…'; });
     function done() { aiBusy = false; btns.forEach(function (b, i) { b.disabled = false; b.textContent = labels[i]; }); }
-    function fail(m) { done(); msErr.textContent = m; msErr.hidden = false; }
-    fetch('https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(model) + ':generateContent', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: pr.system }] },
-        contents: [{ role: 'user', parts: [{ text: pr.user }] }],
-        generationConfig: { temperature: 0.8, maxOutputTokens: 2048 }
-      })
-    }).then(function (res) {
-      return res.json().catch(function () { return {}; }).then(function (j) { return { ok: res.ok, status: res.status, j: j }; });
-    }).then(function (o) {
-      if (!o.ok) {
-        var em = (o.j && o.j.error && o.j.error.message) || '';
-        if (o.status === 400 && /API key/i.test(em)) return fail('Clé API refusée : vérifiez qu’elle est copiée en entier.');
-        if (o.status === 403) return fail('Accès refusé par Google (clé invalide ou service non autorisé dans votre pays/projet). ' + em);
-        if (o.status === 404) return fail('Modèle « ' + model + ' » introuvable : changez son nom dans les réglages IA.');
-        if (o.status === 429) return fail('Quota gratuit atteint : réessayez dans une minute, ou demain si la limite journalière est atteinte.');
-        return fail('Erreur Gemini (' + o.status + ') ' + em);
-      }
-      var c = o.j.candidates && o.j.candidates[0];
-      var out = c && c.content && c.content.parts ? c.content.parts.map(function (x) { return x.text || ''; }).join('').trim() : '';
-      if (!out) return fail(o.j.promptFeedback && o.j.promptFeedback.blockReason ? 'Message bloqué par le filtre de Google. Reformulez votre base.' : 'Réponse vide de Gemini : réessayez.');
-      out = out.replace(/^```[a-z]*\n?|```$/g, '').trim();
-      msOut.textContent = out;
+    aiRun(aiBuildPrompt(text), key, $('#aiModel').value.trim()).then(function (r) {
+      msOut.textContent = r.out;
       $('#msResult').hidden = false;
-      $('#msAnalysis').innerHTML = '<p><b>Message généré par IA</b> (Gemini, modèle ' + esc(model) + ') à partir de votre base et de vos messages modèles. Relisez-le et corrigez-le avant de l’envoyer : l’IA peut se tromper.</p>';
+      $('#msAnalysis').innerHTML = '<p><b>Message généré par IA gratuite</b> : modèle <b>' + esc(r.model) + '</b> via OpenRouter, en ' + (r.ms / 1000).toFixed(1).replace('.', ',') + ' s' + (r.planB ? ' (plan B : le modèle prioritaire ' + esc(r.prio || 'Nemotron') + ' n’a pas répondu)' : '') + '. Relisez et corrigez le message avant de l’envoyer : l’IA peut se tromper.</p>';
       var res = $('#msResult'); if (res.scrollIntoView) res.scrollIntoView({ behavior: 'smooth', block: 'start' });
       done();
-    }).catch(function () { fail('Connexion impossible : vérifiez votre réseau (ou un bloqueur de publicités qui bloque Google).'); });
+    }, function (e) {
+      done(); msErr.textContent = (e && e.msg) || 'Connexion impossible : vérifiez votre réseau (ou un bloqueur de publicités qui bloque openrouter.ai).'; msErr.hidden = false;
+    });
   }
   $('#aiGen').addEventListener('click', aiGenerate);
   $('#aiRegen').addEventListener('click', aiGenerate);
